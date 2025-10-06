@@ -20,7 +20,7 @@ rule make_microhap_folder:
 
 
 
-# for each collection of SAM files, make an rds file witin an
+# for each collection of BAM files, make an rds file witin an
 # microhaplot directory like this
 # {run_dir}/{species_dir}/microhaplot/{marker_set}--{type}--{additional}.rds
 # The filename might be, for example:
@@ -30,13 +30,13 @@ rule make_microhap_folder:
 #
 # ROSA--target_fastas--rosawr.rds
 #
-# The input here is all of the sam files needed to create
+# The input here is all of the bam files needed to create
 # the single output. (This is an aggregation step and
 # we want all the dependencies to propagate appropriately.)
 # rule: micohaplot
 rule microhap_extract_fullgex_remapped:
 	input:
-		sams = lambda wc: bam_tree_equivalent_files_from_marker_sets(wc, type = "fullgex_remapped", trunk = "sams", ext = ".sam"),
+		bams = lambda wc: bam_tree_equivalent_files_from_marker_sets(wc, type = "fullgex_remapped", trunk = "bams", ext = ".bam"),
 		input_vcf = fullgex_remapped_mh_vcf_from_marker_set_genome_microhap_vcf,
 		ui = "{run_dir}/{species_dir}/microhaplot/ui.R",
 		shiny = "{run_dir}/{species_dir}/microhaplot/server.R" 
@@ -54,7 +54,7 @@ rule microhap_extract_fullgex_remapped:
 # here is the rule for target fastas
 rule microhap_extract_target_fastas:
 	input:
-		sams = lambda wc: bam_tree_equivalent_files_from_marker_sets(wc, type = "target_fasta", trunk = "sams", ext = ".sam"),
+		bams = lambda wc: bam_tree_equivalent_files_from_marker_sets(wc, type = "target_fasta", trunk = "bams", ext = ".bam"),
 		input_vcf = target_fasta_mh_vcf_from_marker_set_genome_microhap_vcf,
 		ui = "{run_dir}/{species_dir}/microhaplot/ui.R",
 		shiny = "{run_dir}/{species_dir}/microhaplot/server.R" 
@@ -68,5 +68,5 @@ rule microhap_extract_target_fastas:
 	script:
 		"../script/extract_microhaps.R"
 	#shell:
-	#	"for i in {input.sams}; do echo $i; done  > {output.rds}"
+	#	"for i in {input.bams}; do echo $i; done  > {output.rds}"
 
