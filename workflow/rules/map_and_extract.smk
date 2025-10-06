@@ -76,7 +76,7 @@ rule map_to_target_fastas:
   output:
     bam="{run_dir}/{species_dir}/bams/target_fastas/{marker_set}/{target_fasta}/{sample}.bam",
     bai="{run_dir}/{species_dir}/bams/target_fastas/{marker_set}/{target_fasta}/{sample}.bam.bai",
-    sam="{run_dir}/{species_dir}/sams/target_fastas/{marker_set}/{target_fasta}/{sample}.sam",
+#    sam="{run_dir}/{species_dir}/sams/target_fastas/{marker_set}/{target_fasta}/{sample}.sam",
     idx=temp("{run_dir}/{species_dir}/idxstats/target_fastas/{marker_set}/{target_fasta}/{sample}_idxstats.txt"),
   shell:
     "bwa mem -R '{params.rg}' {input.g} {input.EF}  2> {log.bwa} | "
@@ -84,7 +84,7 @@ rule map_to_target_fastas:
     " samtools sort -T {wildcards.run_dir}/{wildcards.species_dir}/bams/target_fastas/{wildcards.marker_set}/{wildcards.target_fasta}/{wildcards.sample} "
     "   -O bam -o {output.bam} - 2>> {log.samtools}; "
     " samtools index {output.bam} 2>> {log.samtools}; "
-    " samtools view {output.bam} > {output.sam} 2>> {log.samtools}; "
+#    " samtools view {output.bam} > {output.sam} 2>> {log.samtools}; "
     " samtools idxstats {output.bam} > {output.idx} 2>> {log.samtools}; "
 
 
@@ -154,7 +154,7 @@ rule map_fullg_extracted_to_thinned_genomes:
   output:
     bam="{run_dir}/{species_dir}/bams/fullgex_remapped_to_thinned/{marker_set}/{genome}/{sample}.bam",
     bai="{run_dir}/{species_dir}/bams/fullgex_remapped_to_thinned/{marker_set}/{genome}/{sample}.bam.bai",
-    sam="{run_dir}/{species_dir}/sams/fullgex_remapped_to_thinned/{marker_set}/{genome}/{sample}.sam",
+#    sam="{run_dir}/{species_dir}/sams/fullgex_remapped_to_thinned/{marker_set}/{genome}/{sample}.sam",
     idx=temp("{run_dir}/{species_dir}/idxstats/fullgex_remapped_to_thinned/{marker_set}/{genome}/{sample}_idxstats.txt"),
   shell:
     "bwa mem -R '{params.rg}' {input.g} {input.EF}  2> {log.bwa} | "
@@ -162,7 +162,7 @@ rule map_fullg_extracted_to_thinned_genomes:
     " samtools sort -T {params.prefix} "
     "   -O bam -o {output.bam} - 2>> {log.samtools}; "
     " samtools index {output.bam} 2>> {log.samtools}; "
-    " samtools view {output.bam} > {output.sam} 2>> {log.samtools}; "
+#    " samtools view {output.bam} > {output.sam} 2>> {log.samtools}; "
     " samtools idxstats {output.bam} > {output.idx} 2>> {log.samtools}; "
 
 
