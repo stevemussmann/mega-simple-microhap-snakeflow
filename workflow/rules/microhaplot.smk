@@ -10,6 +10,8 @@ rule make_microhap_folder:
 		"{run_dir}/{species_dir}/microhaplot/server.R"
 	log:
 		"{run_dir}/{species_dir}/logs/microhap_shiny_stuff/microhap-install-etc.log"
+	conda:
+		"../envs/samtools.yaml"
 #	conda:
 #		"../envs/microhap.yaml"
 	envmodules:
